@@ -38,6 +38,7 @@ app.get("/christmas/:element", (req, res) => {
   }
 });
 
+/*
 app.get("/mail", (req, res) => {
   res.send(mail);
 });
@@ -51,5 +52,21 @@ app.post("/mail", (req, res) => {
   mail.push(mailRecieved);
   res.send(`💌 Santa recieved your mail: ${mailRecieved} 💌`);
 });
+*/
+
+app
+  .route("/mail")
+  .get((req, res) => {
+    res.send(mail);
+  })
+  .post((req, res) => {
+    const mailRecieved = req.body.mail;
+    if (!mailRecieved) {
+      return res.sendStatus(400);
+    }
+
+    mail.push(mailRecieved);
+    res.send(`💌 Santa recieved your mail: ${mailRecieved} 💌`);
+  });
 
 app.listen(port);
